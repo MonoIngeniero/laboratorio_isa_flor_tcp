@@ -27,6 +27,11 @@ public class ServicesImpl{
         game.showAll(show);
     }
 
+    public Cell[][] markCell(int i, int j) {
+        game.markCell(i, j);
+        return game.getBoard();
+    }
+
     public Cell[][] printBoard() {
         game.printBoard();
         Cell [][] cells = game.getBoard();

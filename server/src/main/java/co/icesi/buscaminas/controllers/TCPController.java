@@ -39,8 +39,7 @@ public class TCPController {
     public TCPController(ServicesImpl services, int port) {
         this.services = services;
         try {
-            serverSocket = new ServerSocket(port, 10, InetAddress.getByName("192.168.131.214"));
-            executor = Executors.newFixedThreadPool(5);
+            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("0.0.0.0"));            executor = Executors.newFixedThreadPool(5);
             gson = new GsonBuilder().create();
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,6 +109,19 @@ public class TCPController {
 
                         }
                         Cell[][] board = services.printBoard();
+                        response.data.put("board", board);
+                        break;
+                    case "MARK_CELL":
+                        i = Integer.parseInt(data.get("i"));
+                        j = Integer.parseInt(data.get("j"));
+                        try {
+                            services.markCell(i, j);
+                            response.status = "OK";
+                        } catch (Exception e) {
+                            response.status = "ERROR";
+                            response.data.put("message", e.getMessage());
+                        }
+                        board = services.printBoard();
                         response.data.put("board", board);
                         break;
                     case "SOW_ALL":

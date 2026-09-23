@@ -10,12 +10,19 @@ public class Main {
 
     public static void main(String[] args)
     {
+        int port = 12345;
+        if (args.length > 0) {
+            try {
+                port = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                System.out.println("Puerto invalido, usando el puerto por defecto 12345");
+            }
+        }
+
         ServicesImpl serv = new ServicesImpl();
         new Thread(() -> apply(serv.getGame())).start();
-        // TCPController controller = new TCPController(serv);
-        // controller.startService();
 
-        TCPController iceController = new TCPController(serv);
+        TCPController iceController = new TCPController(serv, port);
         iceController.startService();
     }
     public static void apply(BoardGame bg) {
