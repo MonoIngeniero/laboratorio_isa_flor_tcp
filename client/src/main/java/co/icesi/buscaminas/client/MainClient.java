@@ -1,6 +1,5 @@
 package co.icesi.buscaminas.client;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -212,6 +211,23 @@ public class MainClient {
         mostrarTableroDe(response);
     }
 
+    private static void consultarTablero() {
+        Response response = enviar(new Request("GET_BOARD", new HashMap<>()));
+        if (response == null) {
+            return;
+        }
+        mostrarTableroDe(response);
+    }
 
+    private static void rendirse() {
+        Response response = enviar(new Request("SOW_ALL", new HashMap<>()));
+        if (response == null) {
+            return;
+        }
+
+        System.out.println("Te has rendido, este era el tablero completo");
+        mostrarTableroDe(response);
+        gameEnded = true;
+    }
 
 }

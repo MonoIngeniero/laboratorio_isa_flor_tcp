@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: co.icesi.buscaminas.Main
+Main-Class: co.icesi.buscaminas.client.MainClient
 Class-Path: file:/C:/Users/Isabella/.gradle/caches/modules-2/files-2.1/c
  om.google.code.gson/gson/2.10.1/b3add478d4382b78ea20b1671390a858002feb6
  c/gson-2.10.1.jar
