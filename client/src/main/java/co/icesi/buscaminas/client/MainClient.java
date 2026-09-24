@@ -153,6 +153,65 @@ public class MainClient {
 
     }
 
+    private static void manejarFinDePartida(Response response) {
+        Boolean gameEnd = client.extractBoolean(response, "gameEnd");
+        Boolean win = client.extractBoolean(response, "win");
+
+        if (gameEnd != null && gameEnd) {
+            gameEnded = true;
+            if (win != null && win) {
+                System.out.println();
+                System.out.println("FELICITACIONES, HAS GANADO LA PARTIDA");
+            } else {
+                System.out.println();
+                System.out.println("¡BOOM! Pisaste una mina, derrota");
+                Response full = enviar(new Request("SOW_ALL", new HashMap<>()));
+                if (full != null) {
+                    mostrarTableroDe(full);
+                }
+            }
+        }
+    }
+
+    private static void destaparCelda() {
+        if (gameEnded) {
+            System.out.println("La partida ya se terminó. Inicie una nueva partida");
+            return;
+        }
+        int i = leerEntero("Fila: ");
+        int j = leerEntero("Columna: ");
+
+        Map<String, String> data = new HashMap<>();
+        data.put("i", String.valueOf(i));
+        data.put("j", String.valueOf(j));
+
+        Response response = enviar(new Request("SELECT_CELL", data));
+        if (response == null) {
+            return;
+        }
+        mostrarTableroDe(response);
+        manejarFinDePartida(response);
+    }
+
+    private static void marcarCelda() {
+        if (gameEnded) {
+            System.out.println("La partida ya terminó, inicie una nueva partida");
+            return;
+        }
+        int i = leerEntero("Fila: ");
+        int j = leerEntero("Columna: ");
+
+        Map<String, String> data = new HashMap<>();
+        data.put("i", String.valueOf(i));
+        data.put("j", String.valueOf(j));
+
+        Response response = enviar(new Request("MARK_CELL", data));
+        if (response == null) {
+            return;
+        }
+        mostrarTableroDe(response);
+    }
+
 
 
 }
