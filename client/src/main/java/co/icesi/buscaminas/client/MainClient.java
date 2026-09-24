@@ -99,6 +99,7 @@ public class MainClient {
         System.out.println("1. Iniciar nueva partida (Fila, columna, minas)");
         System.out.println("2. Destapar celda (Fila, columna");
         System.out.println("3. Marcar / Desmarcar bandera (Fila, columna");
+        System.out.println("4. Consultar estado actual del tablero");
         System.out.println("5. Rendirse y revelar el tablero completo");
         System.out.println("6. Salir");
     }
@@ -143,7 +144,7 @@ public class MainClient {
         data.put("m", String.valueOf(m));
         data.put("minas", String.valueOf(minas));
 
-        Response response = enviar(new Request("INIT GAME", data));
+        Response response = enviar(new Request("INIT_GAME", data));
         if (response == null) {
             return;
         }
