@@ -12,3 +12,7 @@ jar {
         )
     }
 }
+
+tasks.named('run') {
+    standardInput = System.in
+}
